@@ -16,21 +16,51 @@ Plugin.create :mikutter_suddenly_death do
 		role: :postbox
 	) do |opt|
 		begin
-			message = Plugin[:gtk].widgetof(opt.widget).widget_post.buffer.text
-			length = message.screen_width / 2 + 1
-			line1 = ""
-			line3 = ""
+			max_length = 0
+
+			# メッセージを取得してバラバラにする（意味深）
+			message = Plugin[:gtk].widgetof(opt.widget).widget_post.buffer.text.split("\n")
+			message.each do |line|
+				# 一番長い行を調べる
+				length = line.screen_width / 2 + 1
+				if max_length < length then
+					max_length = length
+				end
+			end
+
+			# 上下のアレをアレする
 			i = 0
-			while length != i do
+			line1 = "＿人"
+			line3 = "￣^"
+			while max_length != i do
 				line1 += "人"
 				line3 += "Y^"
 				i += 1
 			end
-			str =	"＿人" + line1 + "＿\n" + 
-					"＞　#{message}　＜\n" +
-					"￣^" + line3 + "￣"
-			Post.primary_service.update(:message => str)
-			Plugin[:gtk].widgetof(opt.widget).widget_post.buffer.text = ''
+
+			# ツイーヨをつくります
+			str = line1 + "＿\n"
+			message.each do |line|
+				i = line.screen_width / 2 + 1
+				while max_length != i do
+					line += "　"
+					i += 1
+				end
+				str += "＞　#{line}　＜\n"
+			end
+			str += line3 + "￣"
+
+			# 突然の死
+			if UserConfig[:suddenly_death_immediate] then
+				Post.primary_service.update(:message => str)
+				Plugin[:gtk].widgetof(opt.widget).widget_post.buffer.text = ""
+			else
+				Plugin[:gtk].widgetof(opt.widget).widget_post.buffer.text = str
+			end
 		end
+	end
+
+	settings "突然の死" do
+		boolean('すぐに投稿する', :suddenly_death_immediate)
 	end
 end
