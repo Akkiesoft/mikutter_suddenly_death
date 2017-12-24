@@ -1,12 +1,12 @@
-mikutter_suddenly_death
-=====================
+# suddenly_death
 
-なにこれ
----
+## なにこれ
+
 mikutterでいつでも突然の死を迎えられるプラグインです。
 
-つかいかた
----
+## つかいかた
+
+```
 プラグインをインストロール  
 　　　　　　　　　　↘  
 　　　　　　　　　ショートカットキーを割り当て  
@@ -18,7 +18,12 @@ mikutterでいつでも突然の死を迎えられるプラグインです。
 ＿人人人人人人＿  
 ＞　突然の死　＜  
 ￣^Y^Y^Y^Y^￣  
+```
 
-Special Thanks
----
+```
+git clone https://github.com/Akkiesoft/mikutter_suddenly_death ~/.mikutter/plugin/suddenly_death
+```
+
+# Special Thanks
+
 としぁ氏（飲み会でいきなり聞いてすんませんでした(☝ ՞ਊ ՞)☝）

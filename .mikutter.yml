@@ -1,0 +1,9 @@
+---
+slug: :suddenly_death
+depends:
+  mikutter: 3.5.15
+  plugin: []
+version: '0.2'
+author: Akkiesoft
+name: suddenly_death
+description: 'いつでも突然の死を迎えられるプラグイン'

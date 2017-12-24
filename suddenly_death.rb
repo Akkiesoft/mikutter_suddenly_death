@@ -52,7 +52,7 @@ Plugin.create :mikutter_suddenly_death do
 
 			# 突然の死
 			if UserConfig[:suddenly_death_immediate] then
-				Post.primary_service.update(:message => str)
+				Service.primary.post(:message => str)
 				Plugin[:gtk].widgetof(opt.widget).widget_post.buffer.text = ""
 			else
 				Plugin[:gtk].widgetof(opt.widget).widget_post.buffer.text = str
