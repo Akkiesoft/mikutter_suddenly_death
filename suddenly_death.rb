@@ -53,7 +53,7 @@ Plugin.create :mikutter_suddenly_death do
 
 			# 突然の死
 			if UserConfig[:suddenly_death_immediate] then
-				Service.primary.post(:message => str)
+				compose(opt, :body => str)
 				postbox.buffer.text = ""
 			else
 				postbox.buffer.text = str
