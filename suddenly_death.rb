@@ -17,9 +17,10 @@ Plugin.create :mikutter_suddenly_death do
 	) do |opt|
 		begin
 			max_length = 0
+			postbox = Plugin[:gtk].widgetof(opt.widget).widget_post
 
 			# メッセージを取得してバラバラにする（意味深）
-			message = Plugin[:gtk].widgetof(opt.widget).widget_post.buffer.text.split("\n")
+			message = postbox.buffer.text.split("\n")
 			message.each do |line|
 				# 一番長い行を調べる
 				length = line.screen_width / 2 + 1
@@ -53,9 +54,9 @@ Plugin.create :mikutter_suddenly_death do
 			# 突然の死
 			if UserConfig[:suddenly_death_immediate] then
 				Service.primary.post(:message => str)
-				Plugin[:gtk].widgetof(opt.widget).widget_post.buffer.text = ""
+				postbox.buffer.text = ""
 			else
-				Plugin[:gtk].widgetof(opt.widget).widget_post.buffer.text = str
+				postbox.buffer.text = str
 			end
 		end
 	end
