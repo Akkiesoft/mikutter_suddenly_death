@@ -17,7 +17,7 @@ Plugin.create :mikutter_suddenly_death do
 	) do |opt|
 		begin
 			max_length = 0
-			postbox = Plugin[:gtk].widgetof(opt.widget).widget_post
+			postbox = Plugin[:gtk3].widgetof(opt.widget).widget_post
 
 			# メッセージを取得してバラバラにする（意味深）
 			message = postbox.buffer.text.split("\n")
@@ -53,11 +53,11 @@ Plugin.create :mikutter_suddenly_death do
 
 			# 突然の死
 			if UserConfig[:suddenly_death_immediate] then
-				compose(opt, :body => str)
-				postbox.buffer.text = ""
-			else
-				postbox.buffer.text = str
+                world, = Plugin.filtering(:world_current, nil)
+				compose(world, body: str)
+                str = ""
 			end
+			postbox.buffer.text = str
 		end
 	end
 
